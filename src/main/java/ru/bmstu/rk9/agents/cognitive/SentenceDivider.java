@@ -1,6 +1,8 @@
 package ru.bmstu.rk9.agents.cognitive;
 
+import java.util.List;
+
 public interface SentenceDivider {
 
-    String[] detectSentences(String text);
+    List<String> detectSentences(String text);
 }
