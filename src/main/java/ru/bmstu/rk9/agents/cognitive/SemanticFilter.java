@@ -5,5 +5,5 @@ import java.util.List;
 public interface SemanticFilter {
 
 
-    List<String> determBookSentences(List<String> sentences);
+    List<String> determineBookSentences(List<String> sentences);
 }

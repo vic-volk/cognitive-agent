@@ -1,5 +1,7 @@
 package ru.bmstu.rk9.agents.cognitive;
 
+import ru.bmstu.rk9.agents.cognitive.agnet.SimpleCognitiveAgent;
+
 public class TestAgent {
 
     public static void main(String[] args) {

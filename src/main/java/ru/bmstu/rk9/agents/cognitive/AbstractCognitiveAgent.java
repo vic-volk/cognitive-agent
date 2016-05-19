@@ -6,16 +6,18 @@ import ru.bmstu.rk9.agents.AgentCommunicationBus;
 import java.util.List;
 import java.util.Map;
 
-public class SimpleCognitiveAgent implements CognitiveAgent {
+public abstract class AbstractCognitiveAgent implements CognitiveAgent {
 
     //// Services ////
-    SentenceDivider sentenceDivider;
-    SyntaxAnalyzer syntaxAnalyzer;
-    SentenceFilter sentenceFilter;
-    SemanticFilter semanticFilter;
-    OntologyProducer ontologyProducer;
-    AgentCommunicationBus agentCommunicationBus;
-    ResponseProducer responseProducer;
+    protected SentenceDivider sentenceDivider;
+    protected SyntaxAnalyzer syntaxAnalyzer;
+    protected SentenceFilter sentenceFilter;
+    protected SemanticFilter semanticFilter;
+    protected OntologyProducer ontologyProducer;
+    protected AgentCommunicationBus agentCommunicationBus;
+    protected ResponseProducer responseProducer;
+
+    public abstract void initServices();
 
     /**
      * Определить предложения по тексту
@@ -27,16 +29,21 @@ public class SimpleCognitiveAgent implements CognitiveAgent {
      * временные требования: уложиться в одну секунду
      *
      * @param text - входной текст
-     * @return
+     * @return ответ агента
      */
     public String ask(String text) {
+        //  Определить предложения по тексту
         List<String> sentences = sentenceDivider.detectSentences(text);
+        //  Определить типы предложений по предложениям
         Map<String, String> typeMap = syntaxAnalyzer.analyzeTypes(sentences);
+        //  Отфильтровать вопросительные предложения
         List<String> questionSentences = sentenceFilter.filterQuestionSentences(typeMap);
-        List<String> bookSentences = semanticFilter.determBookSentences(questionSentences);
+        //  Определить те вопросительные предложения, в которых спрашивают книги
+        List<String> bookSentences = semanticFilter.determineBookSentences(questionSentences);
+        //  Сформировать онтологии по запросам по книгам
         OWLOntology bookOntology = ontologyProducer.create(bookSentences);
         OWLOntology responseOntology = agentCommunicationBus.request(1, bookOntology);
-        Response response = responseProducer.combineReponse(responseOntology);
+        Response response = responseProducer.combineResponse(responseOntology);
         return response.getResponseAnswer();
     }
 }

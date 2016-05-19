@@ -4,5 +4,5 @@ import org.semanticweb.owlapi.model.OWLOntology;
 
 public interface ResponseProducer {
 
-    Response combineReponse(OWLOntology bookResponseOntology);
+    Response combineResponse(OWLOntology bookResponseOntology);
 }
