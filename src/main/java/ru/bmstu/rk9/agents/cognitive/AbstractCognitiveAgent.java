@@ -1,12 +1,16 @@
 package ru.bmstu.rk9.agents.cognitive;
 
 import org.semanticweb.owlapi.model.OWLOntology;
-import ru.bmstu.rk9.agents.AgentCommunicationBus;
+import ru.bmstu.rk9.agents.ACLMessage;
+import ru.bmstu.rk9.agents.FIPAMessage;
+import ru.bmstu.rk9.agents.bookmaster.BookmasterAgent;
 
 import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractCognitiveAgent implements CognitiveAgent {
+
+    protected BookmasterAgent bookmasterAgent;
 
     //// Services ////
     protected SentenceDivider sentenceDivider;
@@ -14,7 +18,7 @@ public abstract class AbstractCognitiveAgent implements CognitiveAgent {
     protected SentenceFilter sentenceFilter;
     protected SemanticFilter semanticFilter;
     protected OntologyProducer ontologyProducer;
-    protected AgentCommunicationBus agentCommunicationBus;
+    protected FIPAMessageWrapper fipaMessageWrapper;
     protected ResponseProducer responseProducer;
 
     public abstract void initServices();
@@ -42,8 +46,11 @@ public abstract class AbstractCognitiveAgent implements CognitiveAgent {
         List<String> bookSentences = semanticFilter.determineBookSentences(questionSentences);
         //  Сформировать онтологии по запросам по книгам
         OWLOntology bookOntology = ontologyProducer.create(bookSentences);
-        OWLOntology responseOntology = agentCommunicationBus.request(1, bookOntology);
-        Response response = responseProducer.combineResponse(responseOntology);
+        //  Обернуть онтологию в сообщение протокола FIPA
+        FIPAMessage fipaMessage = fipaMessageWrapper.wrapMessage(1, bookOntology);
+        //  Получить ответ от агента-эксперта по книгам
+        ACLMessage aclMessage = bookmasterAgent.process(fipaMessage);
+        Response response = responseProducer.combineResponse(aclMessage);
         return response.getResponseAnswer();
     }
 }

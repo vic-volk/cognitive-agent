@@ -1,8 +1,8 @@
 package ru.bmstu.rk9.agents.cognitive;
 
-import org.semanticweb.owlapi.model.OWLOntology;
+import ru.bmstu.rk9.agents.ACLMessage;
 
 public interface ResponseProducer {
 
-    Response combineResponse(OWLOntology bookResponseOntology);
+    Response combineResponse(ACLMessage aclMessage);
 }

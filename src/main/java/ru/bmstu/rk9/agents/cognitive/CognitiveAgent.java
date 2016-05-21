@@ -1,6 +1,8 @@
 package ru.bmstu.rk9.agents.cognitive;
 
-public interface CognitiveAgent {
+import ru.bmstu.rk9.agents.Agent;
+
+public interface CognitiveAgent extends Agent {
 
     /**
      * Парсер обрабатывает человеческий вопрос
@@ -12,4 +14,6 @@ public interface CognitiveAgent {
      * @return
      */
     String ask(String text);
+
+    void initServices();
 }

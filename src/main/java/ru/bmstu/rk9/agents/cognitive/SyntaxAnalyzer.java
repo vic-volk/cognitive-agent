@@ -6,12 +6,11 @@ import java.util.Map;
 public interface SyntaxAnalyzer {
 
     /**
-     * Analyze
-     * @param text
-     * @return
+     * Анализирует типы предложений:
+     * повествовательные, вопросительные, восклицательные
+     * @param sentences - предложения
+     * @return - соответствие предложений их типам
      */
-    String analyzeType(String text);
-
     Map<String, String> analyzeTypes(List<String> sentences);
 
 }
