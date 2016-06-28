@@ -15,5 +15,7 @@ public interface CognitiveAgent extends Agent {
      */
     String ask(String text);
 
-    void initServices();
+    void startAgent();
+
+    void stopAgent();
 }

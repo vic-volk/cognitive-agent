@@ -21,8 +21,6 @@ public abstract class AbstractCognitiveAgent implements CognitiveAgent {
     protected FIPAMessageWrapper fipaMessageWrapper;
     protected ResponseProducer responseProducer;
 
-    public abstract void initServices();
-
     /**
      * Определить предложения по тексту
      * Определить типы предложений по предложениям

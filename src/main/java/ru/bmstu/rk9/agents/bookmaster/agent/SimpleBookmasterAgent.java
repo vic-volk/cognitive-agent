@@ -10,4 +10,8 @@ public class SimpleBookmasterAgent implements BookmasterAgent {
     public ACLMessage process(ACLMessage aclMessage) {
         return new FIPAMessage();
     }
+
+    @Override
+    public void run() {
+    }
 }

@@ -8,6 +8,6 @@ public class HardResponseProducer implements ResponseProducer {
 
     @Override
     public Response combineResponse(ACLMessage aclMessage) {
-        return null;
+        return new Response();
     }
 }

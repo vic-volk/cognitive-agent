@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface OntologyProducer {
 
-    OWLOntology create(List<String> sentences) throws OWLOntologyCreationException;
+    OWLOntology create(List<String> sentences);
 }

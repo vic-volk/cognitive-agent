@@ -7,6 +7,14 @@ public class Response {
     OWLOntology ontology;
     String responseAnswer;
 
+    public Response() {
+        this.responseAnswer = "";
+    }
+
+    public Response(String responseAnswer) {
+        this.responseAnswer = responseAnswer == null ? "" : responseAnswer;
+    }
+
     public OWLOntology getOntology() {
         return ontology;
     }
