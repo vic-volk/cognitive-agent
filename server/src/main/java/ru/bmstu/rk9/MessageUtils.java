@@ -14,7 +14,13 @@ public class MessageUtils {
 
     public static String getMessage(Socket socket) throws IOException {
         InputStream stream = socket.getInputStream();
-        ObjectInputStream ois = new ObjectInputStream(stream);
-        return ois.readUTF();
+        DataInputStream dis = new DataInputStream(stream);
+        byte[] buf = new byte[1024];
+        String message = "";
+        while (dis.read() != -1) {
+            dis.read(buf);
+            message += new String(buf);
+        }
+        return message;
     }
 }
