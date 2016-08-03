@@ -7,9 +7,9 @@ public class MessageUtils {
 
     public static void sendMessage(Socket socket, String message) throws IOException {
         OutputStream stream = socket.getOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(stream);
-        oos.writeUTF(message);
-        oos.flush();
+        DataOutputStream dos = new DataOutputStream(stream);
+        dos.write(message.getBytes());
+        dos.flush();
     }
 
     public static String getMessage(Socket socket) throws IOException {

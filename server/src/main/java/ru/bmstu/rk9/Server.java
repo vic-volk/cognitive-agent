@@ -9,10 +9,12 @@ public class Server implements Runnable {
 
     ServerSocket serverSocket;
     volatile boolean keepProcessing = true;
+    private String simpleResponseMessage = "HTTP/1.1 200 OK\r\n" +
+            "Content-Type: text/html\r\n\r\n" +
+            "<html><body><h1>It works!</h1></body></html>";
 
-    public Server(int port, int millisecondsTimeout) throws IOException {
+    public Server(int port) throws IOException {
         serverSocket = new ServerSocket(port);
-        serverSocket.setSoTimeout(millisecondsTimeout);
     }
 
     @Override
@@ -52,8 +54,8 @@ public class Server implements Runnable {
             String message = MessageUtils.getMessage(socket);
             System.out.println("Server: got message: " + message);
             Thread.sleep(1000);
-            System.out.println("Server: sending reply: " + message);
-            MessageUtils.sendMessage(socket, "Processed: " + message);
+            System.out.println("Server: sending reply: \n" + simpleResponseMessage);
+            MessageUtils.sendMessage(socket, simpleResponseMessage);
             System.out.println("Server: sent");
             closeIgnoringException(socket);
         } catch (Exception e) {

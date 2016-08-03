@@ -7,7 +7,7 @@ public class ClientTest {
 
     @Test
     public void testWebServerStart() throws IOException, InterruptedException {
-        Thread thread = new Thread(new Server(8081, 10000));
+        Thread thread = new Thread(new Server(8081));
         thread.start();
         thread.join();
     }
