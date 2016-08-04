@@ -9,9 +9,7 @@ public class Server implements Runnable {
 
     ServerSocket serverSocket;
     volatile boolean keepProcessing = true;
-    private String simpleResponseMessage = "HTTP/1.1 200 OK\r\n" +
-            "Content-Type: text/html\r\n\r\n" +
-            "<html><body><h1>It works!</h1></body></html>";
+    private String simpleResponseMessage = "HTTP/1.1 200 OK\r\n";
 
     public Server(int port) throws IOException {
         serverSocket = new ServerSocket(port);
