@@ -9,7 +9,7 @@ public class Server implements Runnable {
 
     ServerSocket serverSocket;
     volatile boolean keepProcessing = true;
-    private String simpleResponseMessage = "HTTP/1.1 200 OK\r\n";
+    private String simpleResponseMessage = "HTTP/1.1 200 OK\r\n\r\n<h1>It works!</h1>";
 
     public Server(int port) throws IOException {
         serverSocket = new ServerSocket(port);
@@ -51,7 +51,6 @@ public class Server implements Runnable {
             System.out.println("Server: getting message");
             String message = MessageUtils.getMessage(socket);
             System.out.println("Server: got message: " + message);
-            Thread.sleep(1000);
             System.out.println("Server: sending reply: \n" + simpleResponseMessage);
             MessageUtils.sendMessage(socket, simpleResponseMessage);
             System.out.println("Server: sent");
